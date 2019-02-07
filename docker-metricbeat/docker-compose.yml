@@ -1,0 +1,22 @@
+version: '3.5'
+
+
+
+services:
+
+  metricbeat:
+    user: root
+    image: docker.elastic.co/beats/metricbeat:6.5.3
+    volumes:
+      - ./metricbeat.docker.yml:/usr/share/metricbeat/metricbeat.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+      - /proc:/hostfs/proc:ro
+      - /:/hostfs:ro
+      - ./metricbeat:/usr/share/metricbeat/data
+
+# COmentar si no se utiliza en local
+#networks:
+  #default:
+  #  external:
+  #    name: dockerelk_elk
